@@ -1,16 +1,21 @@
 ;; Basic
 (setq inhibit-startup-screen t)
+(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 (setq column-number-mode t)
 (menu-bar-mode -1)
-
-(setq visual-bell t)
-(setq ring-bell-function 'ignore)
+(tool-bar-mode -1)
 
 (setq make-backup-files nil)
 
 (setopt use-short-answer t)
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+(defun flash-mode-line ()
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 (xterm-mouse-mode)
 (setq mouse-auto-select-window t)
@@ -23,17 +28,23 @@
 
 (global-set-key (kbd "C-x 4") 'transpose-frame)
 
-(global-set-key (kbd "C-x ;") 'comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(defun nuke-all-buffers ()
+(defun yf/nuke-all-buffers ()
   (interactive)
   (mapcar 'kill-buffer (buffer-list))
   (delete-other-windows)
 )
-(global-set-key (kbd "C-x C-k") 'nuke-all-buffers)
+(global-set-key (kbd "C-x C-k") 'yf/nuke-all-buffers)
 
 (global-set-key (kbd "C-x C-p") 'previous-buffer)
 (global-set-key (kbd "C-x C-n") 'next-buffer)
+
+(defun yf/toggle-relative-lines ()
+  (interactive)
+  (if (eq display-line-numbers 'relative)
+      (setq display-line-numbers t)
+    (setq display-line-numbers 'relative)))
+(global-set-key (kbd "<f5>") 'yf/toggle-relative-lines)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -49,8 +60,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company emmet-mode magit markdown-toc multiple-cursors pinentry
-	     prettier-js transpose-frame xclip)))
+   '(company emmet-mode exec-path-from-shell magit markdown-toc
+	     multiple-cursors pinentry prettier-js transpose-frame
+	     xclip)))
 
 ;; Magit
 (require 'use-package)
@@ -71,8 +83,8 @@
 
 ;; multiple cursors
 (require 'multiple-cursors)
-(global-set-key (kbd "C-c C-c") 'mc/edit-lines)
-(global-set-key (kbd "C-c C-n") 'mc/mark-next-word-like-this)
+(global-set-key (kbd "C-x ;") 'mc/edit-lines)
+(global-set-key (kbd "C-x f") 'mc/mark-next-word-like-this)
 
 ;; eglot
 (use-package eglot
@@ -122,4 +134,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVuSansM Nerd Font Mono" :foundry "nil" :slant normal :weight regular :height 120 :width normal)))))
