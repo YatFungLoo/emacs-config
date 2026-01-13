@@ -25,6 +25,7 @@
 (global-set-key (kbd "M-<right>") 'windmove-right)
 (global-set-key (kbd "M-<up>") 'windmove-up)
 (global-set-key (kbd "M-<down>") 'windmove-down)
+(global-set-key (kbd "C-x C-o") 'other-window)
 
 (global-set-key (kbd "C-x 4") 'transpose-frame)
 
@@ -158,6 +159,9 @@
 
 ;; C++
 (setq c-basic-offset 4)
+
+;; ispell
+(setq ispell-local-dictionary "en_GB")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
