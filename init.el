@@ -28,7 +28,6 @@
 
 (global-set-key (kbd "C-x 4") 'transpose-frame)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 (defun yf/nuke-all-buffers ()
   (interactive)
   (mapcar 'kill-buffer (buffer-list))
@@ -52,6 +51,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+(require 'use-package)
 
 ;; for package-install-selected-packages / package-autoremove
 (custom-set-variables
@@ -60,12 +60,44 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company emmet-mode exec-path-from-shell magit markdown-toc
-	     multiple-cursors pinentry prettier-js transpose-frame
-	     xclip)))
+   '(company emmet-mode exec-path-from-shell ibuffer-vc magit
+	     markdown-toc multiple-cursors pinentry prettier-js
+	     transpose-frame xclip)))
+
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(setq ibuffer-expert t)
+(setq ibuffer-use-header-line t)
+(setq ibuffer-saved-filter-groups
+      '(("Default"
+         ("Programming" (or (mode . markdown-mode)
+			    (mode . c-mode)
+                            (mode . c++-mode)
+                            (mode . js-mode)
+                            (mode . emacs-lisp-mode)))
+	 ("Shell" (or (mode . eshell-mode)
+		      (name . "terminal")))
+         ("Dired" (mode . dired-mode))
+         ("Magit" (name . "^magit"))
+         ("*" (and (name . "^\\*.*\\*$")
+                   (not (name . "eshell"))
+		   (not (name . "terminal")))))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-switch-to-saved-filter-groups "Default")))
+
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (name 30 30 :left :elide)
+              " "
+              (size 9 -1 :right)
+              " "
+              (mode 16 16 :left :elide)
+              " " filename-and-process)))
 
 ;; Magit
-(require 'use-package)
 (use-package magit
   :bind (:map magit-file-section-map
 	      ("RET" . magit-diff-visit-file-other-window)
