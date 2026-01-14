@@ -1,6 +1,6 @@
 ;; Basic
 (setq inhibit-startup-screen t)
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'visual)
 (global-display-line-numbers-mode)
 (setq column-number-mode t)
 (menu-bar-mode -1)
@@ -18,23 +18,21 @@
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 (xterm-mouse-mode)
-(setq mouse-auto-select-window t)
 
 ;; Shortcuts
-(global-set-key (kbd "M-<left>") 'windmove-left)
-(global-set-key (kbd "M-<right>") 'windmove-right)
-(global-set-key (kbd "M-<up>") 'windmove-up)
-(global-set-key (kbd "M-<down>") 'windmove-down)
-(global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key (kbd "C-x f") 'find-file)
+(global-set-key (kbd "C-x C-SPC") 'mc--mark-symbol-at-point)
 
+(global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-x 4") 'transpose-frame)
+(global-set-key (kbd "C-x C-4") 'rotate-frame)
 
 (defun yf/nuke-all-buffers ()
   (interactive)
   (mapcar 'kill-buffer (buffer-list))
   (delete-other-windows)
 )
-(global-set-key (kbd "C-x C-k") 'yf/nuke-all-buffers)
+(global-set-key (kbd "C-x C-k") 'rgrep)
 
 (global-set-key (kbd "C-x C-p") 'previous-buffer)
 (global-set-key (kbd "C-x C-n") 'next-buffer)
@@ -116,8 +114,8 @@
 
 ;; multiple cursors
 (require 'multiple-cursors)
-(global-set-key (kbd "C-x ;") 'mc/edit-lines)
-(global-set-key (kbd "C-x f") 'mc/mark-next-word-like-this)
+(global-set-key (kbd "C-x C-g") 'mc/edit-lines)
+(global-set-key (kbd "C-x C-f") 'mc/mark-next-word-like-this)
 
 ;; eglot
 (use-package eglot
@@ -131,6 +129,8 @@
 ;; company-mode
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(setq company-minimum-prefix-length 2)
+(setq company-idle-delay 0.2)
 
 ;; flymake
 (use-package flymake

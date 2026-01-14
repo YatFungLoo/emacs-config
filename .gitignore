@@ -5,3 +5,4 @@ ido.last
 .DS_Store
 /.mc-lists.el
 /eshell/
+/tramp
