@@ -24,6 +24,8 @@
 (global-set-key (kbd "C-x C-SPC") 'mc--mark-symbol-at-point)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
+(windmove-default-keybindings)
+
 (global-set-key (kbd "C-x 4") 'transpose-frame)
 (global-set-key (kbd "C-x C-4") 'rotate-frame)
 
@@ -36,6 +38,9 @@
 
 (global-set-key (kbd "C-x C-p") 'previous-buffer)
 (global-set-key (kbd "C-x C-n") 'next-buffer)
+
+(global-set-key (kbd "C-x p") 'tab-previous)
+(global-set-key (kbd "C-x n") 'tab-next)
 
 (defun yf/toggle-relative-lines ()
   (interactive)
