@@ -44,9 +44,9 @@
 
 (defun yf/toggle-relative-lines ()
   (interactive)
-  (if (eq display-line-numbers 'relative)
+  (if (eq display-line-numbers 'visual)
       (setq display-line-numbers t)
-    (setq display-line-numbers 'relative)))
+    (setq display-line-numbers 'visual)))
 (global-set-key (kbd "<f5>") 'yf/toggle-relative-lines)
 
 (defun yf/prettier-markdown-toc ()
