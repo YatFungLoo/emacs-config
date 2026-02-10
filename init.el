@@ -49,6 +49,14 @@
     (setq display-line-numbers 'relative)))
 (global-set-key (kbd "<f5>") 'yf/toggle-relative-lines)
 
+(defun yf/prettier-markdown-toc ()
+  (interactive)
+  (when (and (fboundp 'prettier-js-prettify)
+             (fboundp 'markdown-toc-refresh-toc))
+    (prettier-js-prettify)
+    (markdown-toc-refresh-toc)
+    (message "Buffer formatted and toc refreshed")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Package
