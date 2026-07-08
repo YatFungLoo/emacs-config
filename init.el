@@ -83,7 +83,7 @@
 
 ;; modus
 (setq modus-vivendi-palette-overrides
-      '((bg-main "#101010")
+      '((bg-main "#202020")
         (fg-main "#e0e0e0")
         (bg-dim  "#252525")
         (fg-dim  "#a0a0a0")))
