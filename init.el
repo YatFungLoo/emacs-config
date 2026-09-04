@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Basic
 (setq inhibit-startup-screen t)
 (setq display-line-numbers-type 'visual)
